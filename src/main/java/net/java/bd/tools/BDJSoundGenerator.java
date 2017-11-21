@@ -1,13 +1,13 @@
 
-/*  
+/*
  * Copyright (c) 2008, Sun Microsystems, Inc.
- * 
+ *
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *  * Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  *  * Redistributions in binary form must reproduce the above copyright
@@ -16,7 +16,7 @@
  *  * Neither the name of Sun Microsystems nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,27 +28,27 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
- *  Note:  In order to comply with the binary form redistribution 
- *         requirement in the above license, the licensee may include 
- *         a URL reference to a copy of the required copyright notice, 
- *         the list of conditions and the disclaimer in a human readable 
+ *
+ *  Note:  In order to comply with the binary form redistribution
+ *         requirement in the above license, the licensee may include
+ *         a URL reference to a copy of the required copyright notice,
+ *         the list of conditions and the disclaimer in a human readable
  *         file with the binary form of the code that is subject to the
- *         above license.  For example, such file could be put on a 
- *         Blu-ray disc containing the binary form of the code or could 
- *         be put in a JAR file that is broadcast via a digital television 
- *         broadcast medium.  In any event, you must include in any end 
- *         user licenses governing any code that includes the code subject 
- *         to the above license (in source and/or binary form) a disclaimer 
- *         that is at least as protective of Sun as the disclaimers in the 
+ *         above license.  For example, such file could be put on a
+ *         Blu-ray disc containing the binary form of the code or could
+ *         be put in a JAR file that is broadcast via a digital television
+ *         broadcast medium.  In any event, you must include in any end
+ *         user licenses governing any code that includes the code subject
+ *         to the above license (in source and/or binary form) a disclaimer
+ *         that is at least as protective of Sun as the disclaimers in the
  *         above license.
- * 
+ *
  *         A copy of the required copyright notice, the list of conditions and
- *         the disclaimer will be maintained at 
+ *         the disclaimer will be maintained at
  *         https://hdcookbook.dev.java.net/misc/license.html .
  *         Thus, licensees may comply with the binary form redistribution
  *         requirement with a text file that contains the following text:
- * 
+ *
  *             A copy of the license(s) governing this code is located
  *             at https://hdcookbook.dev.java.net/misc/license.html
  */
@@ -77,7 +77,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  *
  * @author A. Sundararajan
  */
-public final class BDJSoundGenerator { 
+public final class BDJSoundGenerator {
     private static boolean debug;
     // BD-J sampling frequency for interactive sounds
     private static final int BD_J_SAMPLING_FREQUENCY = 48000; // Hz
@@ -86,7 +86,7 @@ public final class BDJSoundGenerator {
 
     // file magic for .bdmv files
     private static final byte[] SOUND_BDMV_TYPE_INDICATOR = "BCLK".getBytes();
-    // sound.bdmv version string     
+    // sound.bdmv version string
     private static final byte[] SOUND_BDMV_VERSION = "0200".getBytes();
 
     // Don't create me!
@@ -96,7 +96,7 @@ public final class BDJSoundGenerator {
         if (args.length < 2) {
             usage(1);
         }
-       
+
 for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
  System.err.println("type: " + AudioSystem.getAudioFileTypes()[i]);
 }
@@ -140,11 +140,11 @@ for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
             }
         }
 
-        File outputFile = new File(args[args.length - 1]);    
-        try {          
+        File outputFile = new File(args[args.length - 1]);
+        try {
             // channel count in each audio input
             int[] channels = new int[numInputs];
-            // frame length for each audio input   
+            // frame length for each audio input
             int[] frameLengths = new int[numInputs];
             /*
              * See section 5.6.2 of BDROM Part 3_v2.02D specification.
@@ -157,24 +157,24 @@ for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
              AudioFormat bdjFormat = new AudioFormat(
                  BD_J_SAMPLING_FREQUENCY ,
                  BD_J_SAMPLE_SIZE,
-                 /* mono or stereo */ 2/* AudioSystem.NOT_SPECIFIED */, 
-                 /* signed */ true,  
+                 /* mono or stereo */ 2/* AudioSystem.NOT_SPECIFIED */,
+                 /* signed */ true,
                  /* big-endian */ true);
 
             /*
              * We need to get the PCM converted frame length and not from input!
              * For example, input may not be 48KHz sampled and/or 16 bits-per-sample.
-             * We get info for each input audio file and close the stream so that 
+             * We get info for each input audio file and close the stream so that
              * we don't have to keep all input file streams open at the same time.
              */
-            for (int i = 0; i < files.length; i++) {                
-                AudioInputStream ais = AudioSystem.getAudioInputStream(bdjFormat, 
+            for (int i = 0; i < files.length; i++) {
+                AudioInputStream ais = AudioSystem.getAudioInputStream(bdjFormat,
                     AudioSystem.getAudioInputStream(files[i]));
 
                 // collect channel count and frame length.
                 channels[i] = ais.getFormat().getChannels();
                 frameLengths[i] = (int) ais.getFrameLength();
- 
+
                 ais.close();
             }
 
@@ -186,7 +186,7 @@ for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
             writeSoundAttributes(out, channels, frameLengths);
 
             for (int i = 0; i < files.length; i++) {
-                AudioInputStream ais = AudioSystem.getAudioInputStream(bdjFormat, 
+                AudioInputStream ais = AudioSystem.getAudioInputStream(bdjFormat,
                     AudioSystem.getAudioInputStream(files[i]));
                 byte[] buf = new byte[8*1024]; // 8K at a time
                 int numBytes = -1;
@@ -208,7 +208,7 @@ for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
             errorExit(exp, 2);
         } catch (UnsupportedAudioFileException uafe) {
             errorExit(uafe, 2);
-        } 
+        }
     }
 
 
@@ -216,9 +216,9 @@ for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
         // Refer to section 5.6.3 sound.bdmv - Syntax table
         dos.write(SOUND_BDMV_TYPE_INDICATOR);
         dos.write(SOUND_BDMV_VERSION);
-        
+
         // Section 5.6.4.1 SoundIndex() - Syntax table
-        final int sizeTillSoundIndex = 
+        final int sizeTillSoundIndex =
                     4 + /* type indicator */
                     4 + /* version */
                     4 + /* SoundData_start_address */
@@ -231,12 +231,12 @@ for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
                         4 + /* sound_data_start_address */
                         4;  /* sound_data_length */
 
-        final int sizeofSoundIndex = 
+        final int sizeofSoundIndex =
                         4 +  /* length */
                         1 +  /* reserved */
                         1 +  /* number of entries */
                         /* variable size based on number of entries */
-                        (numInputs*perEntrySize); 
+                        (numInputs*perEntrySize);
 
 
         // SoundData_start_address (4 bytes)
@@ -245,7 +245,7 @@ for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
         // ExtensionData_start_address  (4 bytes)
         dos.writeInt(0);
 
-        // reserved (24 bytes) 
+        // reserved (24 bytes)
         for (int i = 0; i < 24; i++) {
             dos.write(0);
         }
@@ -253,8 +253,8 @@ for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
         // SoundIndex() start..
 
         /*
-         * length (4 bytes) - length is number of bytes immediately following 
-         * length field and up to the end of SoundIndex() -- so, it does *not* 
+         * length (4 bytes) - length is number of bytes immediately following
+         * length field and up to the end of SoundIndex() -- so, it does *not*
          * include the size of the 'length' field itself. (section 5.6.4.2)
          */
         dos.writeInt(sizeofSoundIndex - 4);
@@ -264,7 +264,7 @@ for (int i = 0; i < AudioSystem.getAudioFileTypes().length; i++) {
         dos.write(numInputs);
     }
 
-    private static void writeSoundAttributes(DataOutputStream dos, int[] channels, int[] frameLengths) 
+    private static void writeSoundAttributes(DataOutputStream dos, int[] channels, int[] frameLengths)
         throws IOException {
         /*
          * Refer to table 5.6.4.1 SoundIndex() - Syntax

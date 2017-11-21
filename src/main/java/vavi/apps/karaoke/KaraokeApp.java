@@ -40,7 +40,7 @@ import org.havi.ui.HSceneFactory;
 
 /**
  * BD-J Karaoke.
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 080824 nsano initial version <br>
  */
@@ -267,9 +267,9 @@ e.printStackTrace(System.err);
                     String className = replace((String) classes.get(j + 1), "/", "_");
                     try {
                         Class.forName(className);
-console.println(classes.get(j) + "    " + className); 
+console.println(classes.get(j) + "    " + className);
                     } catch (Exception e) {
-System.err.println("No such a class: " + className); 
+System.err.println("No such a class: " + className);
                     }
                 }
             }
@@ -280,9 +280,9 @@ System.err.println("No such a class: " + className);
                     String className = replace((String) classes.get(j + 1), "/", "_");
                     try {
                         Class.forName(className);
-console.println(classes.get(j) + "    " + className); 
+console.println(classes.get(j) + "    " + className);
                     } catch (Exception e) {
-System.err.println("No such a class: " + className); 
+System.err.println("No such a class: " + className);
                     }
                 }
             }
@@ -291,13 +291,13 @@ System.err.println("No such a class: " + className);
         /** */
         String itoa(int v, int c) {
             String t = "0";
-            
+
             for (int i = 1; i < c; i++) {
                 t += "0";
             }
-            
+
             String r = t + v;
-            
+
             return r.substring(r.length() - c);
         }
 
@@ -365,7 +365,7 @@ try {
 } catch (Throwable t) { // for xletview bug
  t.printStackTrace(System.err);
  files = new File[] {
-     
+
  };
 }
 console.println("1: " + file);
@@ -379,7 +379,7 @@ try {
 } catch (Throwable t) { // for xletview bug
  t.printStackTrace(System.err);
  files = new File[] {
-     
+
  };
 }
 console.println("2: " + file);
@@ -426,6 +426,7 @@ console.println("5: remove: " + file + ", " + r);
                 try {
                     os.write(buf, 0, r);
                 } catch (IOException e) {
+                    os.close();
 console.println("bytes: " + l);
 throw e;
                 }
@@ -512,14 +513,19 @@ c++;
 
                 int length = adaSound.decode();
                 URL url = adaSound.getURL();
-System.err.println("url: " + url);
+System.err.println("url: " + url + ", " + url.getPath());
+if (url.getPath().indexOf("null/null/null") > 0) {
+ // for XletView
+ url = new URL(url.toString().replace("/build/null/null/null", "/Users/nsano/src/bdj/BdjKaraoke/build/null/null/null"));
+ System.err.println("url': " + url);
+}
                 MediaLocator mediaLocator = new MediaLocator(url);
 System.err.println("mediaLocator: " + mediaLocator);
                 DataSource dataSource = Manager.createDataSource(mediaLocator);
                 Player player = Manager.createPlayer(dataSource);
                 player.start();
 console.println("count: " + c + ", " + length);
-                
+
                 if (adaSound.available() == 0) {
                     break;
                 }
@@ -560,7 +566,7 @@ try {
         }
 
         /** */
-        private KeyListener keyListener = new KeyAdapter() { 
+        private KeyListener keyListener = new KeyAdapter() {
             public void keyPressed(KeyEvent keyEvent) {
                 console.keyPressed(keyEvent);
             }

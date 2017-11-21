@@ -1,5 +1,5 @@
 /*
- * jicyshout relased under terms of the lesser GNU public license 
+ * jicyshout relased under terms of the lesser GNU public license
  * http://www.gnu.org/licenses/licenses.html#TOCLGPL
  */
 
@@ -24,7 +24,7 @@ import javax.media.protocol.SourceStream;
  * trying to figure out the bitrate, sampling frequency, etc. of the stream.
  * With a plain-jane BufferedInputStream and a fake implementation of Seekable,
  * I got a lot of this:
- * 
+ *
  * <pre>
  *  java.lang.ArrayIndexOutOfBoundsException
  *  at com.ibm.media.parser.video.MpegParser.detectStreamType(MpegParser.java:580)
@@ -35,7 +35,7 @@ import javax.media.protocol.SourceStream;
  *  at com.sun.media.ConfigureWorkThread.process(BasicController.java:1447)
  *  at com.sun.media.StateTransitionWorkThread.run(BasicController.java:1416)
  * </pre>
- * 
+ *
  * <p>
  * Note however, that the Seekable implementation is only good for the first
  * buffer-ful and is only meant to get the mp3 decoder happy with his initial
@@ -43,7 +43,7 @@ import javax.media.protocol.SourceStream;
  * it is not going to work to stream for 20 minutes and then try to do
  * <code>seek(0)</code>. Fortunately, once it is playing, the decoder does
  * not attempt to do this.
- * 
+ *
  * @author Chris Adamson, invalidname@mac.com
  */
 public class SeekableInputStream extends BufferedInputStream implements PullSourceStream, Seekable {

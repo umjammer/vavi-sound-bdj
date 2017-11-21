@@ -12,7 +12,7 @@ import java.io.InputStream;
 
 
 /**
- * SimpleWaveInputStream. 
+ * SimpleWaveInputStream.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 081014 nsano initial version <br>
@@ -46,9 +46,9 @@ class SimpleWaveInputStream extends DecodingInputStream {
 
         // little endian to big endian
         for (int i = 0; i < l / 2; i++) {
-            byte b1 = b[i * 2]; 
+            byte b1 = b[i * 2];
             byte b2 = b[i * 2 + 1];
-            b[i * 2] = b2; 
+            b[i * 2] = b2;
             b[i * 2 + 1] = b1;
         }
 

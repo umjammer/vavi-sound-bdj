@@ -287,7 +287,7 @@ fail:
      * Design a low-pass FIR filter using window technique. Length of filter is
      * in length, cutoff frequency in cutoff. 0 < cutoff <= 1.0 (normalized
      * frequency)
-     * 
+     *
      * buffer must already be allocated.
      */
     private final void fir_design(double[] buffer, int length, double cutoff) {
@@ -343,7 +343,7 @@ fail:
 
     /**
      * Process options Options:
-     * 
+     *
      * <pre>
      *  -w &lt;nut / ham&gt;        : window type
      *  -width &lt;short / long&gt; : window width
@@ -361,7 +361,7 @@ fail:
         int[] l1 = new int[MF];
         int[] l2 = new int[MF];
 
-        // 
+        //
         this.win_type = win_type;
 
         // start
@@ -387,7 +387,7 @@ fail:
         work.factor = (double) work.inskip / (double) work.outskip;
         work.inpipe = 0;
 // moved to #resample()
-        
+
         // Find the prime factors of inskip and outskip
         int total = optimize_factors(work.inskip, work.outskip, l1, l2);
         work.total = total;

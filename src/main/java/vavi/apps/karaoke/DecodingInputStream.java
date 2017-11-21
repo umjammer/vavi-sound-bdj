@@ -12,7 +12,7 @@ import java.io.InputStream;
 
 
 /**
- * DecodingInputStream. 
+ * DecodingInputStream.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 081014 nsano initial version <br>

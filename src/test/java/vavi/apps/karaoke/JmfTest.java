@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 
 
 /**
- * JmfTest. 
+ * JmfTest.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 080906 nsano initial version <br>

@@ -18,18 +18,18 @@ import javax.tv.xlet.XletContext;
 
 
 /**
- * AdaSound. 
+ * AdaSound.
  * <pre>
  *   0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
  * +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
  * | B| C| L| K| 0| 2| 0| 0|s start    |e start    |
  * +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
- * |<- reserved                              
+ * |<- reserved
  * +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
  *                       ->|
  * +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
  * </pre>
- * 
+ *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 081014 nsano initial version <br>
  */
@@ -86,7 +86,7 @@ System.err.println("sound: " + sounds[no]);
 
     // file magic for .bdmv files
     final byte[] SOUND_BDMV_TYPE_INDICATOR = "BCLK".getBytes();
-    // sound.bdmv version string     
+    // sound.bdmv version string
     final byte[] SOUND_BDMV_VERSION = "0200".getBytes();
 
     int no = 0;
@@ -95,7 +95,7 @@ System.err.println("sound: " + sounds[no]);
     void writePart(byte[] bytes, int offset, int length) throws IOException {
         int[] channels = { 2 };
         int[] frameLengths = { length / (2 * 2) };
-        
+
 System.err.println("sound: " + sounds[no]);
         OutputStream os = new FileOutputStream(sounds[no]);
         DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(os));
@@ -114,9 +114,9 @@ System.err.println("sound: " + sounds[no]);
         // Refer to section 5.6.3 sound.bdmv - Syntax table
         dos.write(SOUND_BDMV_TYPE_INDICATOR);
         dos.write(SOUND_BDMV_VERSION);
-        
+
         // Section 5.6.4.1 SoundIndex() - Syntax table
-        final int sizeTillSoundIndex = 
+        final int sizeTillSoundIndex =
                     4 + /* type indicator */
                     4 + /* version */
                     4 + /* SoundData_start_address */
@@ -129,12 +129,12 @@ System.err.println("sound: " + sounds[no]);
                         4 + /* sound_data_start_address */
                         4;  /* sound_data_length */
 
-        final int sizeofSoundIndex = 
+        final int sizeofSoundIndex =
                         4 +  /* length */
                         1 +  /* reserved */
                         1 +  /* number of entries */
                         /* variable size based on number of entries */
-                        (numInputs*perEntrySize); 
+                        (numInputs*perEntrySize);
 
 
         // SoundData_start_address (4 bytes)
@@ -143,7 +143,7 @@ System.err.println("sound: " + sounds[no]);
         // ExtensionData_start_address  (4 bytes)
         dos.writeInt(0);
 
-        // reserved (24 bytes) 
+        // reserved (24 bytes)
         for (int i = 0; i < 24; i++) {
             dos.write(0);
         }
@@ -151,8 +151,8 @@ System.err.println("sound: " + sounds[no]);
         // SoundIndex() start..
 
         /*
-         * length (4 bytes) - length is number of bytes immediately following 
-         * length field and up to the end of SoundIndex() -- so, it does *not* 
+         * length (4 bytes) - length is number of bytes immediately following
+         * length field and up to the end of SoundIndex() -- so, it does *not*
          * include the size of the 'length' field itself. (section 5.6.4.2)
          */
         dos.writeInt(sizeofSoundIndex - 4);
@@ -163,7 +163,7 @@ System.err.println("sound: " + sounds[no]);
     }
 
     /** write bdmv attributes */
-    private void writeSoundAttributes(DataOutputStream dos, int[] channels, int[] frameLengths) 
+    private void writeSoundAttributes(DataOutputStream dos, int[] channels, int[] frameLengths)
         throws IOException {
         /*
          * Refer to table 5.6.4.1 SoundIndex() - Syntax

@@ -5,8 +5,8 @@
  *
  * Written by: 2000 ymnk<ymnk@jcraft.com>
  *
- * Many thanks to 
- *   Monty <monty@xiph.org> and 
+ * Many thanks to
+ *   Monty <monty@xiph.org> and
  *   The XIPHOPHORUS Company http://www.xiph.org/ .
  * JOrbis has been based on their awesome works, Vorbis codec and
  * JOrbisPlayer depends on JOrbis.
@@ -296,7 +296,7 @@ public class JOrbisPlayer extends JApplet implements ActionListener, Runnable {
             oy.wrote(bytes);
 
             if (chained) { //
-                chained = false; //   
+                chained = false; //
             } //
             else { //
                 if (oy.pageout(og) != 1) {
@@ -429,7 +429,7 @@ public class JOrbisPlayer extends JApplet implements ActionListener, Runnable {
 
                         if (og.granulepos() == 0) { //
                             chained = true; //
-                            eos = 1; // 
+                            eos = 1; //
                             break; //
                         } //
 

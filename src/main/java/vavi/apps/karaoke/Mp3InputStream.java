@@ -34,7 +34,7 @@ class Mp3InputStream extends DecodingInputStream {
     /** */
     Mp3InputStream(InputStream in) throws IOException {
         super(in);
-        bitstream = new Bitstream(in);      
+        bitstream = new Bitstream(in);
         decoder = new Decoder();
     }
 

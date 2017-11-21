@@ -1,13 +1,13 @@
 
-/*  
+/*
  * Copyright (c) 2008, Sun Microsystems, Inc.
- * 
+ *
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
+ *
  *  * Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
  *  * Redistributions in binary form must reproduce the above copyright
@@ -16,7 +16,7 @@
  *  * Neither the name of Sun Microsystems nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,27 +28,27 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
- *  Note:  In order to comply with the binary form redistribution 
- *         requirement in the above license, the licensee may include 
- *         a URL reference to a copy of the required copyright notice, 
- *         the list of conditions and the disclaimer in a human readable 
+ *
+ *  Note:  In order to comply with the binary form redistribution
+ *         requirement in the above license, the licensee may include
+ *         a URL reference to a copy of the required copyright notice,
+ *         the list of conditions and the disclaimer in a human readable
  *         file with the binary form of the code that is subject to the
- *         above license.  For example, such file could be put on a 
- *         Blu-ray disc containing the binary form of the code or could 
- *         be put in a JAR file that is broadcast via a digital television 
- *         broadcast medium.  In any event, you must include in any end 
- *         user licenses governing any code that includes the code subject 
- *         to the above license (in source and/or binary form) a disclaimer 
- *         that is at least as protective of Sun as the disclaimers in the 
+ *         above license.  For example, such file could be put on a
+ *         Blu-ray disc containing the binary form of the code or could
+ *         be put in a JAR file that is broadcast via a digital television
+ *         broadcast medium.  In any event, you must include in any end
+ *         user licenses governing any code that includes the code subject
+ *         to the above license (in source and/or binary form) a disclaimer
+ *         that is at least as protective of Sun as the disclaimers in the
  *         above license.
- * 
+ *
  *         A copy of the required copyright notice, the list of conditions and
- *         the disclaimer will be maintained at 
+ *         the disclaimer will be maintained at
  *         https://hdcookbook.dev.java.net/misc/license.html .
  *         Thus, licensees may comply with the binary form redistribution
  *         requirement with a text file that contains the following text:
- * 
+ *
  *             A copy of the license(s) governing this code is located
  *             at https://hdcookbook.dev.java.net/misc/license.html
  */
@@ -77,7 +77,7 @@ import java.io.IOException;
  *
  * @author A. Sundararajan
  */
-public final class BDJSoundSplitter { 
+public final class BDJSoundSplitter {
     private static boolean debug;
     // BD-J sampling frequency for interactive sounds
     private static final int BD_J_SAMPLING_FREQUENCY = 48000; // Hz
@@ -86,7 +86,7 @@ public final class BDJSoundSplitter {
 
     // file magic for .bdmv files
     private static final byte[] SOUND_BDMV_TYPE_INDICATOR = "BCLK".getBytes();
-    // sound.bdmv version string     
+    // sound.bdmv version string
     private static final byte[] SOUND_BDMV_VERSION = "0200".getBytes();
 
     // Don't create me!
@@ -112,19 +112,19 @@ public final class BDJSoundSplitter {
                     usage(1);
                 }
                 prefix = args[++i];
-                 
+
             } else if (args[i].equals("-outputDir")) {
                 if (i + 1 == args.length) {
                     usage(1);
                 }
                 outputDir = args[++i];
             } else if (args[i].charAt(0) == '-') {
-                usage(1);    
+                usage(1);
             } else {
                 fileName = args[i];
             }
         }
- 
+
         if (prefix == null) {
             int dotIndex = fileName.lastIndexOf('.');
             if (dotIndex == -1) {
@@ -142,9 +142,9 @@ public final class BDJSoundSplitter {
             errorExit("File not found: " + fileName, 2);
         }
         try {
-            // make output dir just in case...   
+            // make output dir just in case...
             new File(outputDir).mkdirs();
-        
+
             FileInputStream fis = new FileInputStream(fileName);
             DataInputStream dis = new DataInputStream(
                 new BufferedInputStream(fis));
@@ -161,7 +161,7 @@ public final class BDJSoundSplitter {
             // skip reserved 24 bytes
             dis.skip(24);
 
-            final int sizeTillSoundIndex = 
+            final int sizeTillSoundIndex =
                     4 + /* type indicator */
                     4 + /* version */
                     4 + /* SoundData_start_address */
@@ -195,7 +195,7 @@ public final class BDJSoundSplitter {
                     // sound_data_length (4 bytes)
                     sizes[soundId] = readUnsignedInt(dis);
                 }
-               
+
 
                 final int perEntrySize =
                         1 + /* channel_configuration, sampling freq */
@@ -203,16 +203,16 @@ public final class BDJSoundSplitter {
                         4 + /* sound_data_start_address */
                         4;  /* sound_data_length */
 
-                final int sizeofSoundIndex = 
+                final int sizeofSoundIndex =
                         4 +  /* length */
                         1 +  /* reserved */
                         1 +  /* number of entries */
                         /* variable size based on number of entries */
-                        (numEntries*perEntrySize); 
+                        (numEntries*perEntrySize);
 
-                /* 
+                /*
                  * We have to skip N1 padding_words (16 bits each) here.
-                 * We compute pad by subtracing size of data read so far 
+                 * We compute pad by subtracing size of data read so far
                  * from the value of SoundDataStartAddr.
                  */
                 long N1bytes = soundDataStartAddr - (sizeTillSoundIndex + sizeofSoundIndex);
@@ -228,16 +228,16 @@ public final class BDJSoundSplitter {
                     LittleEndian le = new LittleEndian(dos);
 
                      // WAV format: http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
-                    
+
                     // ChunkID contains the letters "RIFF" in ASCII form
                     dos.write("RIFF".getBytes());
 
-                    
+
                     /*
                      * ChunkSize - 36 + SubChunk2Size
                      *
-                     * This is the size of the rest of the chunk 
-                     * following this number.  This is the size of the 
+                     * This is the size of the rest of the chunk
+                     * following this number.  This is the size of the
                      * entire file in bytes minus 8 bytes for the
                      * two fields not included in this count:
                      * ChunkID and ChunkSize.
@@ -264,19 +264,19 @@ public final class BDJSoundSplitter {
                     // SampleRate 8000, 44100, etc. - in our case 48000
                     le.writeInt(BD_J_SAMPLING_FREQUENCY);
                     // ByteRate  == SampleRate * NumChannels * BitsPerSample/8
-                    le.writeInt(BD_J_SAMPLING_FREQUENCY * numChannels * BD_J_SAMPLE_SIZE/8);  
-                    // block align    
-                    le.writeShort(numChannels * BD_J_SAMPLE_SIZE/8); 
+                    le.writeInt(BD_J_SAMPLING_FREQUENCY * numChannels * BD_J_SAMPLE_SIZE/8);
+                    // block align
+                    le.writeShort(numChannels * BD_J_SAMPLE_SIZE/8);
                     // BitsPerSample    8 bits = 8, 16 bits = 16, etc.
-                    le.writeShort(BD_J_SAMPLE_SIZE); 
+                    le.writeShort(BD_J_SAMPLE_SIZE);
 
 
                     // start of "data" subchunk
 
                     // Subchunk2ID - contains the letters "data"
                     dos.write("data".getBytes());
-                    // Subchunk2Size == NumSamples * NumChannels * BitsPerSample/8   
-                    le.writeInt(subChunk2Size); 
+                    // Subchunk2Size == NumSamples * NumChannels * BitsPerSample/8
+                    le.writeInt(subChunk2Size);
                     // The actual sound data -- make sure correct endianess is used!
                     for (int j = 0; j < subChunk2Size/2; j++) {
                        le.writeShort(dis.readShort());
@@ -300,15 +300,15 @@ public final class BDJSoundSplitter {
     }
 
     private static void checkFormat(DataInputStream dis) throws IOException {
-        
+
         // Refer to section 5.6.3 sound.bdmv - Syntax table
-        
+
         // check type_indicator
         for (int i = 0; i < SOUND_BDMV_TYPE_INDICATOR.length; i++) {
             if (dis.read() != SOUND_BDMV_TYPE_INDICATOR[i]) {
                 throw new RuntimeException("Type indicator 'BCLK' expected");
             }
-        }     
+        }
 
         // check version string
         for (int i = 0; i < SOUND_BDMV_VERSION .length; i++) {

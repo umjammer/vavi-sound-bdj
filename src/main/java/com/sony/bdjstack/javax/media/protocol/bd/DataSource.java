@@ -12,7 +12,7 @@ import javax.media.Time;
 
 
 /**
- * DataSource. 
+ * DataSource.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 2008/09/14 nsano initial version <br>

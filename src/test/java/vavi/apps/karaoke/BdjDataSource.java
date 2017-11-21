@@ -1,5 +1,5 @@
 /*
- * jicyshout relased under terms of the lesser GNU public license 
+ * jicyshout relased under terms of the lesser GNU public license
  * http://www.gnu.org/licenses/licenses.html#TOCLGPL
  */
 
@@ -20,7 +20,7 @@ import javax.media.protocol.PullSourceStream;
 
 
 /**
- * BdjDataSource. 
+ * BdjDataSource.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 080905 nsano initial version <br>
@@ -60,7 +60,7 @@ public class BdjDataSource extends PullDataSource {
             // skip reserved 24 bytes
             dis.skip(24);
 
-            final int sizeTillSoundIndex = 
+            final int sizeTillSoundIndex =
                 4 + /* type indicator */
                 4 + /* version */
                 4 + /* SoundData_start_address */
@@ -104,16 +104,16 @@ System.err.println("[" + soundId + "] sizes: " + sizes[soundId]);
                         4 + /* sound_data_start_address */
                         4;  /* sound_data_length */
 
-                final int sizeofSoundIndex = 
+                final int sizeofSoundIndex =
                         4 +  /* length */
                         1 +  /* reserved */
                         1 +  /* number of entries */
                         /* variable size based on number of entries */
-                        (numEntries*perEntrySize); 
+                        (numEntries*perEntrySize);
 
-                /* 
+                /*
                  * We have to skip N1 padding_words (16 bits each) here.
-                 * We compute pad by subtracing size of data read so far 
+                 * We compute pad by subtracing size of data read so far
                  * from the value of SoundDataStartAddr.
                  */
                 long N1bytes = soundDataStartAddr - (sizeTillSoundIndex + sizeofSoundIndex);
@@ -137,7 +137,7 @@ System.err.println("[" + soundId + "] sizes: " + sizes[soundId]);
 
         // file magic for .bdmv files
         private final byte[] SOUND_BDMV_TYPE_INDICATOR = "BCLK".getBytes();
-        // sound.bdmv version string     
+        // sound.bdmv version string
         private final byte[] SOUND_BDMV_VERSION = "0200".getBytes();
 
         private long readUnsignedInt(DataInputStream dis) throws IOException {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-31J"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- ////////////////////////////////////////////////////////////////////// -->
 <!-- Copyright (c) 2008 by Naohide Sano, All rights reserved.               -->
@@ -7,20 +7,21 @@
 <!--                                                                        -->
 <!-- BD-J Karaoke                                                           -->
 <!--                                                                        -->
-<!-- @author	Naohide Sano                                                -->
-<!-- @version	0.00	080824	nsano	initial version                     -->
+<!-- @author Naohide Sano                                                   -->
+<!-- @version 0.00 080824 nsano initial version                             -->
 <!--                                                                        -->
 <!-- ////////////////////////////////////////////////////////////////////// -->
 
 <project name="bdj karaoke" default="run" basedir=".">
 
+  <property environment="env"/>
   <property file="local.properties" />
 
   <property name="dir.build" value="build"/>
   <property name="app.name" value="00000"/>
   <property name="jar.name" value="${app.name}.jar"/>
 
-  <!-- �N���X�p�X�̒�` -->
+  <!-- クラスパスの定義 -->
   <path id="project.class.path">
     <fileset dir="${dir.bdj}/common">
       <include name="*.jar" />
@@ -45,28 +46,28 @@
     </fileset>
   </path>
 
-  <!-- �^�[�Q�b�g�̒�` -->
+  <!-- ターゲットの定義 -->
 
   <!-- clean -->
-  <target name="clean" description="�r���h���̃N���A">
+  <target name="clean" description="ビルド環境のクリア">
     <delete file="${jar.name}" failonerror="false" />
     <delete dir="META-INF" failonerror="false" />
     <delete dir="${dir.build}" failonerror="false" />
   </target>
 
   <!-- prepare -->
-  <target name="prepare" description="�r���h���̏���">
+  <target name="prepare" description="ビルド環境の準備">
     <mkdir dir="${dir.build}" />
   </target>
 
   <!-- javac -->
-  <target name="compile" depends="prepare" description="�R���p�C��">
+  <target name="compile" depends="prepare" description="コンパイル">
     <javac debug="on"
            destdir="${dir.build}"
            source="1.3"
            target="1.3"
            encoding="JISAutoDetect"
-	   deprecation="true">
+           deprecation="true">
       <classpath>
         <pathelement location="${dir.bdj}/common/jmf/jmf.jar" />
         <path refid="project.class.path" />
@@ -91,7 +92,7 @@
     <copy file="${wave.in}" tofile="${dir.build}/${wave.out}" /> 
 -->
     <copy file="${mp3.in}" tofile="${dir.build}/${mp3.out}" /> 
-  
+
     <jar jarfile="${jar.name}">
       <fileset dir="${dir.build}">
         <exclude name="config/**/*" />
@@ -210,7 +211,7 @@
 
     <copy file="sound.bdmv" toDir="${dir.bdj}/common/vavi/apps/karaoke" />
 
-  	<mkdir dir="${dir.build}/null/null/null" />
+    <mkdir dir="${dir.build}/null/null/null" />
 
     <java jar="${dir.bdj}/common/xletview.jar" fork="yes">
       <jvmarg value="-Djava.ext.dirs=${dir.bdj}/common${path.separator}lib"/>

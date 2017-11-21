@@ -88,7 +88,7 @@ loop:   while (true) {
             oy.wrote(bytes);
 
             if (chained) {
-                chained = false;   
+                chained = false;
             } else {
                 if (oy.pageout(og) != 1) {
                     if (bytes < BUFSIZE) {

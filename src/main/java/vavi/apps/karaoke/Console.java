@@ -22,7 +22,7 @@ import org.dvb.ui.FontFactory;
 
 
 /**
- * Console. 
+ * Console.
  *
  * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
  * @version 0.00 081014 nsano initial version <br>
@@ -36,9 +36,9 @@ class Console {
     public void keyPressed(KeyEvent keyEvent) {
         int keyCode= keyEvent.getKeyCode();
         switch (keyCode) {
-        case 461:               //  
+        case 461:               // â–¡
             break;
-        case KeyEvent.VK_ENTER: // ›
+        case KeyEvent.VK_ENTER: // â—‹
             break;
         case KeyEvent.VK_UP:
             if (currentLine > Math.min(pageSize, lines.size())) {
