@@ -24,7 +24,7 @@ import javax.media.protocol.DataSource;
 /**
  * Player.
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 2008/09/14 nsano initial version <br>
  */
 public class Player implements javax.media.Player {

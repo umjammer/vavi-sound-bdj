@@ -19,7 +19,7 @@ import javazoom.jl.decoder.SampleBuffer;
 /**
  * MP3 decoder using Java Layer
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 081014 nsano initial version <br>
  * @see "http://www.javazoom.net/javalayer/javalayer.html"
  */

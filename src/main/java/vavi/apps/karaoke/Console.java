@@ -24,7 +24,7 @@ import org.dvb.ui.FontFactory;
 /**
  * Console.
  *
- * @author <a href="mailto:vavivavi@yahoo.co.jp">Naohide Sano</a> (nsano)
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (nsano)
  * @version 0.00 081014 nsano initial version <br>
  */
 class Console {
